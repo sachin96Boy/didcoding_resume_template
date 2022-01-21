@@ -82,7 +82,7 @@ class Media(models.Model):
     def save(self, *args, **kwargs):
         if self.url:
             self.is_image = False
-        super(Media, self).save(*args, **kwargs)) 
+        super(Media, self).save(*args, **kwargs)
 
 class Portfolio(models.Model):
 
@@ -104,6 +104,6 @@ class Portfolio(models.Model):
             self.slug = slugify(self.name)
         super(Portfolio, self).save(*args, **kwargs)
 
-    
+
 
 # Create your models here.
