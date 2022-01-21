@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
@@ -66,6 +67,43 @@ class Testimonial(models.Model):
     def _str_(self):
         return self.name
 
+class Media(models.Model):
 
+    class Meta:
+        verbose_name_plural = "Media Files"
+        verbose_name = "Media"
+        ordering = ["name"]
+
+    image = models.ImageField(blank=True, null=True, upload_to="media")
+    url = models.URLField(blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    is_image = models.BooleanField(default=True) 
+
+    def save(self, *args, **kwargs):
+        if self.url:
+            self.is_image = False
+        super(Media, self).save(*args, **kwargs)) 
+
+class Portfolio(models.Model):
+
+    class Meta:
+        verbose_name_plural = "Portfolio Profiles"
+        verbose_name = 'Portafolio'
+        ordering = ["name"]
+
+    date = models.DateTimeField(blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, nul=True)
+    body = RichTextField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, upload_to="portfolio")
+    slug = models.SlugField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        super(Portfolio, self).save(*args, **kwargs)
+
+    
 
 # Create your models here.
