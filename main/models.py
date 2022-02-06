@@ -1,5 +1,6 @@
 from distutils.command.upload import upload
 from pyexpat import model
+from turtle import title
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
@@ -104,6 +105,52 @@ class Portfolio(models.Model):
             self.slug = slugify(self.name)
         super(Portfolio, self).save(*args, **kwargs)
 
+    def _str_(self):
+        return self.name
 
+    def get_absolute_url(self):
+        return f"/portfolio/{self.slug}"    
+
+class Blog(models.Model):
+    
+    class meta:
+        verbose_name_plural = "Blog Profiles"
+        verbose_name = "Blog"
+        ordering= ["timestamp"]
+
+    timestamp = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=200, blank=True, null=True)
+    name = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
+    body = RichTextField(blank=True, null=True)
+    slug = models.SlugField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        super(Portfolio, self).save(*args, **kwargs)
+
+    def _str_(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f"/blog/{self.slug}"    
+
+class certificate(models.Model):
+
+    class Meta:
+        verbose_name_plural = "certificates"
+        verbose_name = "certificate"
+
+    date = models.DateTimeField(blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=500, blank=True,)
+    is_active = models.BooleanField(default=True)
+
+    def _str_(self):
+        return self.name
+ 
 
 # Create your models here.
