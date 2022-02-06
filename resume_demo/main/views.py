@@ -1,4 +1,5 @@
 from pickle import TRUE
+from pyexpat import model
 from django.shortcuts import render
 from django.contrib import messages
 from .models import (
@@ -46,6 +47,22 @@ class PortfolioView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True) 
+        return super().get_queryset().filter(is_active=True)
+
+class PortfolioDetailView(generic.DetailView):
+    model = Portfolio 
+    template_name = "main/portfolio_detail.html"
+
+class BlogView(generic.ListView):
+    model = Blog
+    template_name = "main/blog.html"
+    paginate_by = 10
+
+    def get_queryset(self):
+        return super().get_queryset().filter(is_active=True)
+
+class BlogDetailView(generic.DetailView):
+    model = Blog
+    template_name = "main/blog-detail.html"
 
 # Create your views here.

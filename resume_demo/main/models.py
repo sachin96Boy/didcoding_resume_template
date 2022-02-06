@@ -23,7 +23,7 @@ class UserProfile(models.Model):
 
     class Meta:
         verbose_name_plural = 'User Profiles'
-        verbose_name = 'User_Profile'
+        verbose_name = 'User Profile'
 
     user = models.OneToOneField(User, on_delete=models.CASCADE) 
     avatar = models.ImageField(blank="True", null="True", upload_to="avatar")
@@ -56,7 +56,7 @@ class Testimonial(models.Model):
 
     class Meta:
         verbose_name_plural = "Testimonials"
-        vrbose_name = "Testimonial"
+        verbose_name = "Testimonial"
         ordering = ["name"]
 
     thumbnail = models.ImageField(blank=True, null=True, upload_to="testimonials")
@@ -94,7 +94,7 @@ class Portfolio(models.Model):
 
     date = models.DateTimeField(blank=True, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
-    description = models.CharField(max_length=500, blank=True, nul=True)
+    description = models.CharField(max_length=500, blank=True, null=True)
     body = RichTextField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True, upload_to="portfolio")
     slug = models.SlugField(null=True, blank=True)
